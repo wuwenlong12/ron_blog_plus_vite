@@ -18,7 +18,7 @@ jobs:
       - name: Set up Node.js
         uses: actions/setup-node@v2
         with:
-          node-version: "18" # 设置 Node.js 版本
+          node-version: '18' # 设置 Node.js 版本
 
       - name: Set environment variables
         run: echo "DISABLE_ESLINT_PLUGIN=true" >> $GITHUB_ENV
@@ -26,7 +26,7 @@ jobs:
       - name: Set up pnpm
         uses: pnpm/action-setup@v2
         with:
-          version: "8" # 设置 pnpm 版本
+          version: '8' # 设置 pnpm 版本
 
       # 4. 安装依赖
       - name: Install dependencies.
@@ -34,8 +34,10 @@ jobs:
 
       # 5. 构建项目
       - name: Build the project
-        run: pnpm run build 
-
+        run: pnpm run build
+      - name: Debug SSH Key
+        run: |
+          echo "${{ secrets.SERVER_SSH_PRIVATE_KEY }}" | ssh-keygen -lf -
       # 6. 设置 SSH 密钥
       - name: Set up SSH
         uses: webfactory/ssh-agent@v0.5.3
@@ -53,7 +55,7 @@ jobs:
         env:
           SERVER_USER: ${{ secrets.SERVER_USER }} # 从 GitHub Secrets 获取服务器用户名
           SERVER_HOST: ${{ secrets.SERVER_HOST }} # 从 GitHub Secrets 获取服务器 IP 地址
-          DEPLOY_DIR: "ron_blog" 
+          DEPLOY_DIR: 'ron_blog'
         run: |
           echo "Checking and creating deploy directory..."
           ssh $SERVER_USER@$SERVER_HOST "cd ~ && sudo mkdir -p $DEPLOY_DIR"
@@ -70,7 +72,7 @@ jobs:
         env:
           SERVER_USER: ${{ secrets.SERVER_USER }} # 从 GitHub Secrets 获取服务器用户名
           SERVER_HOST: ${{ secrets.SERVER_HOST }} # 从 GitHub Secrets 获取服务器 IP 地址
-          DEPLOY_DIR: "ron_blog" #
+          DEPLOY_DIR: 'ron_blog' #
         run: |
           ssh -o StrictHostKeyChecking=no $SERVER_USER@$SERVER_HOST "bash -c '
             cd $DEPLOY_DIR &&
