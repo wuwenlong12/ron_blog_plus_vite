@@ -2,7 +2,7 @@
 FROM nginx:alpine
 
 # 复制本地构建好的静态文件到 Nginx 的 HTML 目录
-COPY ./build /usr/share/nginx/html
+COPY ./dist /usr/share/nginx/html
 
 # 将 Nginx 配置文件复制到容器中
 COPY ./nginx.conf /etc/nginx/nginx.conf
