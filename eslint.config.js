@@ -10,6 +10,11 @@ import prettier from 'eslint-plugin-prettier';
 export default [
   {
     ignores: ['dist/*', 'node_modules/*'],
+    settings: {
+      react: {
+        version: 'detect',
+      },
+    },
   },
   {
     files: ['**/*.{js,jsx,ts,tsx}'],

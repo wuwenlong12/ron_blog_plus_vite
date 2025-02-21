@@ -1,0 +1,83 @@
+name: Build and Deploy
+
+on:
+  push:
+    branches:
+      - main # 监视推送到主分支的操作
+
+jobs:
+  build:
+    runs-on: ubuntu-latest # 使用 GitHub 提供的 Ubuntu 虚拟机
+
+    steps:
+      # 1. 检出代码
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      # 2. 设置 Node.js 环境
+      - name: Set up Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: "16" # 设置 Node.js 版本
+
+      - name: Set environment variables
+        run: echo "DISABLE_ESLINT_PLUGIN=true" >> $GITHUB_ENV
+      # 3. 设置 pnpm
+      - name: Set up pnpm
+        uses: pnpm/action-setup@v2
+        with:
+          version: "8" # 设置 pnpm 版本
+
+      # 4. 安装依赖
+      - name: Install dependencies.
+        run: pnpm install
+
+      # 5. 构建项目
+      - name: Build the project
+        run: pnpm run build 
+
+      # 6. 设置 SSH 密钥
+      - name: Set up SSH
+        uses: webfactory/ssh-agent@v0.5.3
+        with:
+          ssh-private-key: ${{ secrets.SERVER_SSH_PRIVATE_KEY }} # 从 GitHub Secrets 中获取 SSH 私钥
+
+      # 7. 添加服务器的 SSH 公钥到 known_hosts
+      - name: Add server to known hosts。
+        run: |
+          mkdir -p ~/.ssh
+          ssh-keyscan -H ${{ secrets.SERVER_HOST }} >> ~/.ssh/known_hosts  # 获取并添加服务器公钥
+
+      # 8. 上传构建文件和部署文件到服务器。
+      - name: Upload build files and deployment files to server
+        env:
+          SERVER_USER: ${{ secrets.SERVER_USER }} # 从 GitHub Secrets 获取服务器用户名
+          SERVER_HOST: ${{ secrets.SERVER_HOST }} # 从 GitHub Secrets 获取服务器 IP 地址
+          DEPLOY_DIR: "ron_blog" 
+        run: |
+          echo "Checking and creating deploy directory..."
+          ssh $SERVER_USER@$SERVER_HOST "cd ~ && sudo mkdir -p $DEPLOY_DIR"
+          echo "Uploading build to server..."
+          tar -czf build.tar.gz build  # 将构建文件打包成 tar.gz 文件
+          scp build.tar.gz $SERVER_USER@$SERVER_HOST:$DEPLOY_DIR  # 上传文件到服务器
+          scp ./nginx.conf $SERVER_USER@$SERVER_HOST:$DEPLOY_DIR  # 上传 Nginx 配置文件
+          scp ./docker-compose.yml $SERVER_USER@$SERVER_HOST:$DEPLOY_DIR  # 上传 Docker Compose 文件
+          scp ./Dockerfile $SERVER_USER@$SERVER_HOST:$DEPLOY_DIR  # 上传 Dockerfile
+          ssh $SERVER_USER@$SERVER_HOST "cd ~/$DEPLOY_DIR && tar -xzf build.tar.gz && rm -f build.tar.gz"  # 解压构建文件
+
+      # 9. 使用 Docker Compose 构建并启动容器。
+      - name: Deploy with Docker Compose
+        env:
+          SERVER_USER: ${{ secrets.SERVER_USER }} # 从 GitHub Secrets 获取服务器用户名
+          SERVER_HOST: ${{ secrets.SERVER_HOST }} # 从 GitHub Secrets 获取服务器 IP 地址
+          DEPLOY_DIR: "ron_blog" #
+        run: |
+          ssh -o StrictHostKeyChecking=no $SERVER_USER@$SERVER_HOST "bash -c '
+            cd $DEPLOY_DIR &&
+            
+            # 停止并删除旧的容器（如果有）
+            docker-compose down || true &&
+            
+            # 使用 Docker Compose 构建和启动新的容器
+            docker-compose up -d --build
+          '"
