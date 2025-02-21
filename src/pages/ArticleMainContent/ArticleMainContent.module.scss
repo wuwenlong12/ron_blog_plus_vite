@@ -1,0 +1,149 @@
+@use '../../setting/variables.scss';
+
+.container {
+  padding: 1.8rem 3.5rem;
+  min-height: calc(100vh - 60px);
+  position: relative;
+  height: calc(100vh - 60px);
+  overflow: auto;
+  // background-color: rgba(248, 249, 250, 0.8);
+
+  .title {
+    margin: 0.8rem 0 1.8rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1.2rem 1.8rem;
+    background: rgba(255, 255, 255, 0.15);
+    border-radius: 10px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+
+    span {
+      font-size: 1.6rem;
+      font-weight: 500;
+    }
+
+    .editIcon {
+      transition: all 0.2s ease;
+
+      &:hover {
+        color: rgba(24, 144, 255, 0.95);
+      }
+    }
+
+    .Btn {
+      padding: 0.5rem;
+      border-radius: 6px;
+      transition: background 0.2s ease;
+
+      &:hover {
+        background: rgba(245, 245, 245, 0.3);
+      }
+    }
+  }
+
+  .desc {
+    margin: 1rem 0 1.8rem;
+    padding: 1.2rem 1.8rem;
+    border-radius: 10px;
+    background: rgba(255, 255, 255, 0.15);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+    line-height: 1.6;
+  }
+
+  .catalTitle {
+    margin: 1.8rem 0 1rem;
+    font-size: 1.4rem;
+    font-weight: 500;
+
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+
+    &::before {
+      content: '';
+      width: 4px;
+      height: 1.4rem;
+      background: rgba(24, 144, 255, 0.9);
+      border-radius: 2px;
+    }
+  }
+
+  .hr {
+    border: none;
+    height: 1px;
+    background-color: rgba(238, 238, 238, 0.3);
+    margin: 1rem 0;
+  }
+
+  .floatingButtons {
+    position: fixed;
+    bottom: 80px;
+    right: 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    z-index: 1000;
+
+    .floatingBtn {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 48px;
+      height: 48px;
+      padding: 0;
+      border-radius: 50%;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+      background: #fff;
+      transition: all 0.3s ease;
+
+      // 调整图标大小和颜色
+      svg {
+        width: 18px;
+        height: 18px;
+        color: inherit;
+      }
+
+      &:hover {
+        transform: rotate(12deg) scale(1.1);
+      }
+
+      &.editBtn {
+        background: #1890ff;
+        color: #fff;
+      }
+
+      // 隐藏按钮文字
+      span:not(.anticon) {
+        display: none;
+      }
+    }
+  }
+
+  .mainActionButton {
+    position: fixed;
+    bottom: 24px;
+    right: 24px;
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+    z-index: 1000;
+
+    &:hover {
+      transform: rotate(90deg);
+    }
+  }
+}
+
+// 响应式设计
+@media (max-width: variables.$breakpoint-md) {
+  .container {
+    padding: 1rem;
+  }
+}

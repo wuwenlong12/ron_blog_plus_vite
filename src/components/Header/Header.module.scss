@@ -1,0 +1,119 @@
+/* App.module.scss */
+@use "../../setting/variables.scss";
+
+/* 桌面端样式 */
+.container {
+  width: 100%;
+  height: 60px; /* 明确设置高度 */
+  //   padding: 8px 0;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  display: flex;
+  justify-content: space-between;
+  box-shadow: variables.$box-shadow-light;
+  backdrop-filter: blur(10px); /* 背景模糊 */
+  -webkit-backdrop-filter: blur(10px); /* 兼容 Safari */
+  z-index: 1000;
+  transition: transform 0.3s ease;
+
+  &.visible {
+    transform: translateY(0);
+  }
+
+  &.hidden {
+    transform: translateY(-100%);
+  }
+  Button {
+    margin-right: 10px;
+  }
+  .containerLeft {
+    display: flex;
+    align-items: center;
+    margin-left: 8px;
+    .btnMore {
+      display: none;
+    }
+
+    .navLogo {
+      display: block;
+      margin-left: 20px;
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      margin-right: 20px;
+    }
+
+    .siteName {
+      font-size: 20px;
+      text-align: center;
+    }
+  }
+
+  .menu {
+    width: 500px;
+    height: 50px;
+    padding: 8px 0;
+  }
+
+  .containerRight {
+    display: flex;
+    align-items: center;
+    margin-right: 8px;
+    .btnMenu {
+      display: none;
+    }
+  }
+}
+
+/* 移动端样式 */
+@media (max-width: variables.$breakpoint-md) {
+  .container {
+    height: 60px; /* 在移动端设置适合的高度 */
+    // padding: 8px 16px;
+    position: fixed;
+    top: 0;
+    display: flex;
+    justify-content: space-between;
+    box-shadow: variables.$box-shadow-light;
+    backdrop-filter: blur(10px); /* 背景模糊 */
+    -webkit-backdrop-filter: blur(10px); /* 兼容 Safari */
+    .containerLeft {
+      display: flex;
+      align-items: center;
+      .btnMore {
+        display: block;
+      }
+      .navLogo {
+        display: block;
+        width: 36px; /* 可以保持原尺寸 */
+        height: 36px;
+        border-radius: 50%;
+        margin-right: 10px; /* 调整移动端的间距 */
+        margin-left: 0;
+      }
+
+      .siteName {
+        display: none;
+      }
+    }
+
+    .menu {
+      display: none; /* 隐藏菜单，通常在移动端使用按钮展开 */
+    }
+
+    .containerRight {
+      display: flex;
+      font-size: 14px; /* 调整字体大小 */
+      .btnMenu {
+        display: block;
+      }
+    }
+  }
+  .modal {
+    position: absolute;
+    top: 60px;
+    height: calc(100vh - 60px);
+  }
+}

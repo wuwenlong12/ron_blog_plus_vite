@@ -1,0 +1,124 @@
+@use "../../setting/variables.scss";
+
+.container {
+  display: flex;
+  height: 100vh;
+  overflow: hidden;
+  padding-top: 60px; // 顶部导航栏高度
+}
+
+// 侧边栏基础样式
+%sidebar-base {
+  position: relative;
+  height: calc(100vh - 60px);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+}
+
+// 展开的侧边栏
+.sidebarOpen {
+  @extend %sidebar-base;
+  width: 280px;
+  min-width: 280px;
+
+  .sidebarContent {
+    opacity: 1;
+    visibility: visible;
+    transform: translateX(0);
+  }
+}
+
+// 收起的侧边栏
+.sidebarClosed {
+  @extend %sidebar-base;
+  width: 0;
+  min-width: 0;
+
+  .sidebarContent {
+    opacity: 0;
+    visibility: hidden;
+    transform: translateX(-100%);
+  }
+}
+
+// 切换按钮
+.toggleBtn {
+  position: absolute;
+  right: -32px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 32px;
+  height: 80px;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 0 4px 4px 0;
+  border: none;
+  box-shadow: 2px 0 8px rgba(0, 0, 0, 0.1);
+  z-index: 100;
+
+  &:hover {
+    color: #1890ff;
+    background: rgb(173, 170, 170) !important;
+  }
+}
+
+// 侧边栏内容
+.sidebarContent {
+  height: 100%;
+  overflow-y: auto;
+  padding: 16px;
+  transition: all 0.3s ease;
+  width: 280px; // 固定宽度
+  position: absolute; // 使用绝对定位
+  left: 0;
+  top: 0;
+  background: inherit;
+
+  &::-webkit-scrollbar {
+    width: 4px;
+  }
+
+  &::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background: rgba(0, 0, 0, 0.1);
+    border-radius: 2px;
+
+    &:hover {
+      background: rgba(0, 0, 0, 0.2);
+    }
+  }
+}
+
+// 主内容区
+.mainContent {
+  flex: 1;
+  min-width: 0; // 防止内容溢出
+  // padding: 24px;
+  height: 100vh;
+  overflow: hidden;
+}
+
+// 响应式设计
+@media (max-width: variables.$breakpoint-md) {
+  .sidebarOpen,
+  .sidebarClosed {
+    position: fixed;
+    z-index: 1000;
+  }
+
+  .mainContent {
+    width: 100%;
+    padding: 16px;
+  }
+
+  .toggleBtn {
+    width: 24px;
+    height: 60px;
+    right: -24px;
+  }
+}

@@ -1,0 +1,145 @@
+@use "../../setting/variables.scss";
+
+.container {
+  // margin: auto;
+  margin-top: 60px;
+  padding: 2rem;
+  // text-align: center;
+  // color: #333;
+}
+.topInfo {
+  display: flex;
+  .left {
+    flex: 1;
+    margin-right: 4rem;
+  }
+}
+// 个人简介
+.hero {
+  .avatar {
+    width: 120px;
+    border-radius: 50%;
+    margin-bottom: 1rem;
+  }
+  .name {
+    color: #0078ff;
+    font-weight: bold;
+  }
+}
+
+// 公共 section 样式
+.section {
+  margin-top: 2rem;
+  padding: 1.5rem;
+  background: rgba(0, 0, 0, 0.1);
+  border-radius: 10px;
+
+  h2 {
+    margin-bottom: 1rem;
+  }
+}
+
+// 技术栈
+.techStack {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10px;
+
+  .techItem {
+    background: #0078ff;
+    color: white;
+    padding: 8px 16px;
+    border-radius: 5px;
+    font-size: 14px;
+    font-weight: bold;
+    transition: transform 0.2s;
+  }
+}
+
+// 联系方式
+.contact {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+
+  a {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    text-decoration: none;
+    // color: #333;
+    font-size: 16px;
+    transition: color 0.2s;
+
+    &:hover {
+      color: #0078ff;
+    }
+  }
+}
+.rollBtn {
+  height: 80px;
+  border-radius: 20px;
+  background: linear-gradient(135deg, #ffb6c1, #87cefa);
+  position: absolute;
+  // left: 200px;
+  bottom: 20px;
+  right: 40px;
+  .rollBtnIcon {
+    position: relative;
+    top: 0;
+    animation: moveUpDown 2s infinite ease-in-out;
+
+    @keyframes moveUpDown {
+      0% {
+        top: 0;
+      }
+      50% {
+        top: 10px; // 向上移动10px
+      }
+      100% {
+        top: 0;
+      }
+    }
+  }
+}
+.bottomInfo {
+  margin-top: 80px;
+}
+
+.about {
+  padding: 24px;
+  max-width: 1200px;
+  margin: 0 auto;
+
+  .featureCard {
+    height: 100%;
+    transition: all 0.3s;
+
+    &:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    }
+  }
+}
+
+@media (max-width: variables.$breakpoint-md) {
+  .container {
+    justify-content: center;
+    .topInfo {
+      flex-direction: column;
+      text-align: center;
+      padding: 0;
+      margin: 0;
+      .left {
+        margin-right: 0;
+      }
+    }
+    .right {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-top: 20px;
+    }
+  }
+}

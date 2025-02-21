@@ -1,0 +1,268 @@
+.layout {
+  min-height: 100vh;
+  display: flex;
+  background: #f8fafc;
+}
+
+.sider {
+  position: fixed;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 280px;
+  background: #fff;
+  display: flex;
+  flex-direction: column;
+  z-index: 1000;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.05);
+
+  &.collapsed {
+    width: 80px;
+  }
+
+  .siderTop {
+    padding: 24px 16px;
+    border-bottom: 1px solid #f1f5f9;
+
+    .logo {
+      display: flex;
+      align-items: center;
+      margin-bottom: 24px;
+
+      .logoText {
+        font-size: 24px;
+        font-weight: 700;
+        background: linear-gradient(45deg, #3b82f6, #2563eb);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+      }
+
+      .logoVersion {
+        font-size: 12px;
+        color: #64748b;
+        margin-left: 8px;
+      }
+    }
+
+    .userInfo {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 12px;
+      border-radius: 12px;
+      background: #f8fafc;
+
+      .avatar {
+        width: 40px;
+        height: 40px;
+        border-radius: 10px;
+      }
+
+      .userMeta {
+        display: flex;
+        flex-direction: column;
+
+        .userName {
+          font-size: 14px;
+          font-weight: 600;
+          color: #1e293b;
+        }
+
+        .userRole {
+          font-size: 12px;
+          color: #64748b;
+        }
+      }
+    }
+  }
+
+  .menu {
+    flex: 1;
+    padding: 16px;
+    border: none;
+    background: transparent;
+    overflow-y: auto;
+
+    :global {
+      .ant-menu-item {
+        height: 44px;
+        line-height: 44px;
+        border-radius: 10px;
+        margin: 4px 0;
+        color: #64748b;
+        transition: all 0.3s ease;
+
+        .anticon {
+          font-size: 18px;
+        }
+
+        &:hover {
+          color: #3b82f6;
+          background: rgba(59, 130, 246, 0.08);
+        }
+
+        &.ant-menu-item-selected {
+          background: rgba(59, 130, 246, 0.1);
+          color: #3b82f6;
+          font-weight: 500;
+
+          .anticon {
+            color: #3b82f6;
+          }
+
+          &::after {
+            display: none;
+          }
+
+          &:hover {
+            background: rgba(59, 130, 246, 0.15);
+          }
+        }
+      }
+    }
+  }
+
+  .siderBottom {
+    padding: 16px;
+    border-top: 1px solid #f1f5f9;
+    display: flex;
+    gap: 8px;
+
+    .collapseBtn,
+    .logoutBtn {
+      flex: 1;
+      height: 40px;
+      border-radius: 10px;
+
+      &:hover {
+        background: #f1f5f9;
+        color: #3b82f6;
+      }
+    }
+  }
+}
+
+.mainContent {
+  flex: 1;
+  margin-left: 280px;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  display: flex;
+  flex-direction: column;
+
+  &.expanded {
+    margin-left: 80px;
+  }
+
+  .pageHeader {
+    padding: 24px 32px;
+    background: #fff;
+    border-bottom: 1px solid #f1f5f9;
+
+    .pageTitle {
+      font-size: 24px;
+      font-weight: 600;
+      color: #1e293b;
+      margin: 0;
+      margin-bottom: 4px;
+    }
+
+    .breadcrumb {
+      font-size: 14px;
+      color: #64748b;
+    }
+  }
+}
+
+.content {
+  flex: 1;
+  padding: 24px 32px;
+  overflow: auto;
+
+  .contentInner {
+    background: #fff;
+    border-radius: 16px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    padding: 24px;
+    min-height: calc(100vh - 200px);
+  }
+}
+
+.mobileNav {
+  display: none;
+}
+
+@media (max-width: 768px) {
+  .sider {
+    display: none;
+  }
+
+  .mainContent {
+    margin-left: 0;
+    padding-bottom: 60px;
+  }
+
+  .mobileNav {
+    display: block;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 60px;
+    background: #fff;
+    box-shadow: 0 -1px 6px rgba(0, 0, 0, 0.1);
+    z-index: 1000;
+
+    .navContent {
+      height: 100%;
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+      padding: 0 16px;
+
+      .navItem {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 4px;
+        padding: 8px;
+        border-radius: 8px;
+        transition: all 0.3s ease;
+        color: #64748b;
+
+        .icon {
+          font-size: 20px;
+        }
+
+        .label {
+          font-size: 12px;
+        }
+
+        &.active {
+          color: #3b82f6;
+          background: rgba(59, 130, 246, 0.1);
+        }
+
+        &:active {
+          transform: scale(0.95);
+        }
+      }
+    }
+  }
+
+  .pageHeader {
+    padding: 16px;
+
+    .pageTitle {
+      font-size: 20px;
+    }
+  }
+
+  .content {
+    padding: 16px;
+
+    .contentInner {
+      padding: 16px;
+    }
+  }
+}

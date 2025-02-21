@@ -1,0 +1,16 @@
+.tocContainer {
+  margin-bottom: 24px;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  transition: all 0.3s ease;
+  max-height: calc(100vh - 48px);
+  &:hover {
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+    transform: translateY(-2px);
+  }
+}
+
+.collapse {
+  border: none !important;
+  background: transparent !important;
+}
