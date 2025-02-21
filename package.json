@@ -11,7 +11,7 @@
     "lint:fix": "eslint . --fix",
     "preview": "vite preview",
     "format": "prettier --write \"**/*.{js,jsx,ts,tsx,json,css,md}\"",
-    "prepare": "husky",
+    "prepare": "husky install",
     "lint-staged": "lint-staged"
   },
   "dependencies": {
@@ -49,6 +49,8 @@
     "@blocknote/core": "^0.23.6",
     "@blocknote/mantine": "^0.23.6",
     "@blocknote/react": "^0.23.6",
+    "@commitlint/cli": "^19.7.1",
+    "@commitlint/config-conventional": "^19.7.1",
     "@eslint/js": "^9.19.0",
     "@mantine/core": "^7.16.3",
     "@reduxjs/toolkit": "^2.3.0",
