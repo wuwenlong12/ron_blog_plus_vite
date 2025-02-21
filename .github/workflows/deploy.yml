@@ -35,9 +35,7 @@ jobs:
       # 5. 构建项目
       - name: Build the project
         run: pnpm run build
-      - name: Debug SSH Key
-        run: |
-          echo "${{ secrets.SERVER_SSH_PRIVATE_KEY }}" | ssh-keygen -lf -
+
       # 6. 设置 SSH 密钥
       - name: Set up SSH
         uses: webfactory/ssh-agent@v0.5.3
@@ -59,13 +57,13 @@ jobs:
         run: |
           echo "Checking and creating deploy directory..."
           ssh $SERVER_USER@$SERVER_HOST "cd ~ && sudo mkdir -p $DEPLOY_DIR"
-          echo "Uploading build to server..."
-          tar -czf build.tar.gz build  # 将构建文件打包成 tar.gz 文件
-          scp build.tar.gz $SERVER_USER@$SERVER_HOST:$DEPLOY_DIR  # 上传文件到服务器
+          echo "Uploading dist to server..."
+          tar -czf dist.tar.gz dist  # 将构建文件打包成 tar.gz 文件
+          scp dist.tar.gz $SERVER_USER@$SERVER_HOST:$DEPLOY_DIR  # 上传文件到服务器
           scp ./nginx.conf $SERVER_USER@$SERVER_HOST:$DEPLOY_DIR  # 上传 Nginx 配置文件
           scp ./docker-compose.yml $SERVER_USER@$SERVER_HOST:$DEPLOY_DIR  # 上传 Docker Compose 文件
           scp ./Dockerfile $SERVER_USER@$SERVER_HOST:$DEPLOY_DIR  # 上传 Dockerfile
-          ssh $SERVER_USER@$SERVER_HOST "cd ~/$DEPLOY_DIR && tar -xzf build.tar.gz && rm -f build.tar.gz"  # 解压构建文件
+          ssh $SERVER_USER@$SERVER_HOST "cd ~/$DEPLOY_DIR && tar -xzf dist.tar.gz && rm -f dist.tar.gz"  # 解压构建文件
 
       # 9. 使用 Docker Compose 构建并启动容器。
       - name: Deploy with Docker Compose
