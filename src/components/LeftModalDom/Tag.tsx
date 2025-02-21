@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import styles from './LeftModalDom.module.scss';
 import { FaTags } from 'react-icons/fa';
 import { getTag } from '../../api/tag';

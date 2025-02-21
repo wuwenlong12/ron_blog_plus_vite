@@ -23,14 +23,14 @@ const ProfileCard: React.FC = () => {
           <p>{siteInfo && siteInfo.card_signature}</p>
           <div className={styles.icons}>
             <a
-              href={siteInfo && siteInfo.github}
+              href={siteInfo?.github ?? '#'}
               target="_blank"
               rel="noopener noreferrer"
             >
               <FaGithub />
             </a>
 
-            <a href={`mailto:${siteInfo && siteInfo.email}`}>
+            <a href={`mailto:${siteInfo?.email ?? ''}`}>
               <FaEnvelope />
             </a>
           </div>

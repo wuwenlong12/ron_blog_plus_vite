@@ -42,14 +42,14 @@ const InfoList: React.FC<InfoListProps> = ({ style }) => {
         setProjects(prevProjects =>
           prevProjects.map(project =>
             project._id === id
-              ? { ...project, likes: project.likes + 1 }
+              ? { ...project, likes: project.likes ? project.likes + 1 : 1 }
               : project
           )
         );
         if (isModal && selectedProject) {
           setSelectedProject(prev => {
             if (!prev) return null;
-            return { ...prev, likes: prev.likes + 1 };
+            return { ...prev, likes: prev.likes ? prev.likes + 1 : 1 };
           });
         }
 
@@ -58,7 +58,7 @@ const InfoList: React.FC<InfoListProps> = ({ style }) => {
           setProjects(prevProjects =>
             prevProjects.map(project =>
               project._id === id
-                ? { ...project, likes: project.likes - 1 }
+                ? { ...project, likes: project.likes ? project.likes - 1 : 0 }
                 : project
             )
           );

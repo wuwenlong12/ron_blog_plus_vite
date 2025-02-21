@@ -135,6 +135,7 @@ const Article = () => {
   };
 
   const onSelect: DirectoryTreeProps['onSelect'] = (keys, info) => {
+    console.log(keys);
     dispatch(setSelectedKey(info.node.key));
     localStorage.setItem('selectedMenuKey', info.node.key as string);
     const path = findFullPathByKey(articleRoutesMap, info.node.key as string);

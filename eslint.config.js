@@ -9,7 +9,7 @@ import prettier from 'eslint-plugin-prettier';
 
 export default [
   {
-    ignores: ['dist/*', 'node_modules/*'],
+    ignores: ['**/dist/**', '**/node_modules/**', 'build/**'],
     settings: {
       react: {
         version: 'detect',

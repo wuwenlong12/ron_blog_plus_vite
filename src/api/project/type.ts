@@ -11,7 +11,7 @@ export interface ProjectItem {
   category: string;
   button_url: string;
   content?: PartialBlock[];
-  likes: number;
-  createdAt: string;
-  updatedAt: string;
+  likes?: number;
+  createdAt?: string;
+  updatedAt?: string;
 }

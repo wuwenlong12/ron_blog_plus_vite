@@ -249,7 +249,7 @@ const ArticleMainContent: React.FC<ArticleMainContentProps> = () => {
 
   const saveFoldName = async () => {
     try {
-      const res = await patchFolderName(currentId, name, currentType);
+      const res = await patchFolderName(currentId, name);
       if (res.code === 0) {
         // 更新路由配置
         await dispatch(loadArticleRoutes);
@@ -284,6 +284,7 @@ const ArticleMainContent: React.FC<ArticleMainContentProps> = () => {
   };
 
   const onSelect: DirectoryTreeProps['onSelect'] = (keys, info) => {
+    console.log(keys, info);
     dispatch(setSelectedKey(info.node.key));
     localStorage.setItem('selectedMenuKey', info.node.key as string);
     const path = findFullPathByKey(articleRoutesMap, info.node.key as string);
@@ -355,7 +356,7 @@ const ArticleMainContent: React.FC<ArticleMainContentProps> = () => {
         transition={{ duration: 0.5 }}
         onAnimationComplete={handleAnimationComplete}
       >
-        <AppBreadcrumb isDarkMode={true}></AppBreadcrumb>
+        <AppBreadcrumb></AppBreadcrumb>
         <div className={styles.title}>
           <div style={{ display: 'flex' }}>
             {currentId !== 'default-index' && isAuthenticated && (

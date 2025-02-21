@@ -22,7 +22,9 @@ import { motion } from 'framer-motion';
 
 const SettingManager: React.FC = () => {
   const [form] = Form.useForm();
-  const [aboutContent, setAboutContent] = useState<PartialBlock[]>(undefined);
+  const [aboutContent, setAboutContent] = useState<PartialBlock[] | undefined>(
+    undefined
+  );
   const { message: appMessage } = App.useApp();
   const [loading, setLoading] = useState(false);
   const [avatarLoading, setAvatarLoading] = useState(false);
@@ -83,7 +85,7 @@ const SettingManager: React.FC = () => {
         case 'signatures':
           params = {
             signatures: values.signatures
-              ?.map(item => item.value)
+              ?.map((item: { value: string }) => item.value)
               .filter(Boolean),
           };
           break;
@@ -91,7 +93,7 @@ const SettingManager: React.FC = () => {
         case 'homepage_signature':
           params = {
             homepage_signature: values.homepage_signature
-              ?.map(item => item.value)
+              ?.map((item: { value: string }) => item.value)
               .filter(Boolean),
           };
           break;
@@ -471,7 +473,7 @@ const SettingManager: React.FC = () => {
             editable={true}
             isSummary={true}
             initialContent={aboutContent}
-            onChange={setAboutContent}
+            onChange={content => setAboutContent(content as PartialBlock[])}
           />
           <Form.Item>
             <Button type="primary" htmlType="submit" loading={loading}>

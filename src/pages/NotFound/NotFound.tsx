@@ -1,4 +1,3 @@
-import React from 'react';
 import styles from './NotFound.module.scss';
 import { Button } from 'antd';
 import { RiHomeSmileLine } from 'react-icons/ri';

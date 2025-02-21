@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import { useRef } from 'react';
 import styles from './Home.module.scss';
 import bg from '../../assets/bg.png';
 import ParticlesBg from 'particles-bg';

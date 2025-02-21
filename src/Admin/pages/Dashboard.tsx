@@ -22,11 +22,15 @@ const { RangePicker } = DatePicker;
 const { Text } = Typography;
 
 const VisitStats: React.FC = () => {
-  const [pageStats, setPageStats] = useState<PageStatsResponse['data']>(null);
-  const [visitStats, setVisitStats] =
-    useState<VisitStatsResponse['data']>(null);
-  const [realtimeStats, setRealtimeStats] =
-    useState<RealtimeVisitResponse['data']>(null);
+  const [pageStats, setPageStats] = useState<PageStatsResponse['data'] | null>(
+    null
+  );
+  const [visitStats, setVisitStats] = useState<
+    VisitStatsResponse['data'] | null
+  >(null);
+  const [realtimeStats, setRealtimeStats] = useState<
+    RealtimeVisitResponse['data'] | null
+  >(null);
   const [dateRange, setDateRange] = useState<[Dayjs, Dayjs]>([
     dayjs().subtract(7, 'day'),
     dayjs(),

@@ -106,7 +106,7 @@ const Header: React.FC<HeaderProps> = ({
         />
         <Button
           type="text"
-          onClick={() => window.open(siteInfo && siteInfo.github)}
+          onClick={() => window.open(siteInfo?.github ?? '#')}
           // className={isDarkMode ? styles.BtnDark : styles.BtnLight}
           icon={<GithubOutlined style={{ fontSize: '20px' }} />}
         />

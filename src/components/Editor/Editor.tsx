@@ -1,9 +1,4 @@
-import React, {
-  useImperativeHandle,
-  forwardRef,
-  useEffect,
-  useState,
-} from 'react';
+import { useImperativeHandle, forwardRef, useEffect, useState } from 'react';
 import styles from './Editor.module.scss';
 import {
   getDefaultReactSlashMenuItems,
