@@ -7,12 +7,7 @@ export default defineConfig({
   server: {
     port: 8080,
   },
-  build: {
-    terserOptions: {
-      compress: {
-        drop_console: true, // 移除 console.log
-        drop_debugger: true, // 移除 debugger
-      },
-    },
+  esbuild: {
+    drop: ['console', 'debugger'], // esbuild 会在打包时移除 console 和 debugger 语句
   },
 });
