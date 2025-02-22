@@ -46,7 +46,7 @@ const IndexLayout = () => {
     } else {
       message.success('你好游客,欢迎来到我的博客');
     }
-  }, [dispatch, isAuthenticated]);
+  }, [dispatch, isAuthenticated, status]);
 
   // 路由持久化
   useEffect(() => {
