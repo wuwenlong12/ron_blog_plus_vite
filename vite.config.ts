@@ -7,4 +7,12 @@ export default defineConfig({
   server: {
     port: 8080,
   },
+  build: {
+    terserOptions: {
+      compress: {
+        drop_console: true, // 移除 console.log
+        drop_debugger: true, // 移除 debugger
+      },
+    },
+  },
 });
