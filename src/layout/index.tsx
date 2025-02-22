@@ -43,8 +43,6 @@ const IndexLayout = () => {
   useEffect(() => {
     if (isAuthenticated === true && status === 'succeeded') {
       message.success('你好' + user?.username);
-    } else {
-      message.success('你好游客,欢迎来到我的博客');
     }
   }, [dispatch, isAuthenticated, status]);
 
