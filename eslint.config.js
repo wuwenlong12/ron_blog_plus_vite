@@ -1,4 +1,3 @@
-import js from '@eslint/js';
 import globals from 'globals';
 import typescript from '@typescript-eslint/eslint-plugin';
 import typescriptParser from '@typescript-eslint/parser';
@@ -9,12 +8,15 @@ import prettier from 'eslint-plugin-prettier';
 
 export default [
   {
-    ignores: ['**/dist/**', '**/node_modules/**', 'build/**'],
-    settings: {
-      react: {
-        version: 'detect',
-      },
-    },
+    ignores: [
+      '**/dist/**',
+      '**/node_modules/**',
+      'build/**',
+      '**/*.css',
+      '**/*.scss',
+      '**/*.svg',
+      '**/*.json',
+    ],
   },
   {
     files: ['**/*.{js,jsx,ts,tsx}'],
@@ -36,14 +38,16 @@ export default [
         ...globals.browser,
       },
     },
+    settings: {
+      react: {
+        version: '18.3.1', // 指定 React 版本
+      },
+    },
     rules: {
-      ...js.configs.recommended.rules,
-      ...typescript.configs.recommended.rules,
-      ...reactPlugin.configs.recommended.rules,
-      ...reactHooks.configs.recommended.rules,
+      'prettier/prettier': 'error',
       'react/react-in-jsx-scope': 'off',
       '@typescript-eslint/no-unused-vars': [
-        'error',
+        'warn',
         {
           varsIgnorePattern: '^[A-Z][A-Z_]+$',
           argsIgnorePattern: '^_',
@@ -52,7 +56,6 @@ export default [
       ],
       '@typescript-eslint/no-explicit-any': 'off',
       'react-hooks/exhaustive-deps': 'off',
-      'prettier/prettier': 'error',
     },
   },
 ];

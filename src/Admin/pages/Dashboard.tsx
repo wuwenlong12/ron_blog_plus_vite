@@ -3,6 +3,7 @@ import { DatePicker, Typography, Spin } from 'antd';
 import { motion } from 'framer-motion';
 import ReactECharts from 'echarts-for-react';
 import dayjs, { Dayjs } from 'dayjs';
+import 'dayjs/locale/zh-cn';
 import {
   LineChartOutlined,
   UserOutlined,
@@ -17,6 +18,7 @@ import type {
   VisitStatsResponse,
   RealtimeVisitResponse,
 } from '../../api/site/type';
+import type { EChartsOption } from 'echarts';
 
 const { RangePicker } = DatePicker;
 const { Text } = Typography;
@@ -102,7 +104,7 @@ const VisitStats: React.FC = () => {
     },
   ];
 
-  const getChartOption = () => ({
+  const getChartOption = (): EChartsOption => ({
     tooltip: {
       trigger: 'axis',
       backgroundColor: 'rgba(255, 255, 255, 0.9)',
@@ -118,14 +120,14 @@ const VisitStats: React.FC = () => {
       containLabel: true,
     },
     xAxis: {
-      type: 'category',
+      type: 'category' as const,
       boundaryGap: false,
       data: visitStats?.dailyStats?.map(item => item.date) || [],
       axisLine: { lineStyle: { color: '#e2e8f0' } },
       axisLabel: { color: '#64748b' },
     },
     yAxis: {
-      type: 'value',
+      type: 'value' as const,
       axisLine: { show: false },
       axisTick: { show: false },
       splitLine: { lineStyle: { color: '#f1f5f9' } },
@@ -134,7 +136,7 @@ const VisitStats: React.FC = () => {
     series: [
       {
         name: '访问量',
-        type: 'line',
+        type: 'line' as const,
         smooth: true,
         data: visitStats?.dailyStats?.map(item => item.pv) || [],
         areaStyle: {
@@ -155,7 +157,7 @@ const VisitStats: React.FC = () => {
       },
       {
         name: '访客数',
-        type: 'line',
+        type: 'line' as const,
         smooth: true,
         data: visitStats?.dailyStats?.map(item => item.uv) || [],
         areaStyle: {

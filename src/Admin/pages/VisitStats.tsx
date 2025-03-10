@@ -17,6 +17,7 @@ import type {
   VisitStatsResponse,
   RealtimeVisitResponse,
 } from '../../api/site/type';
+import type { EChartsOption } from 'echarts';
 
 const { RangePicker } = DatePicker;
 const { Text } = Typography;
@@ -102,7 +103,7 @@ const VisitStats: React.FC = () => {
     },
   ];
 
-  const getChartOption = () => ({
+  const getChartOption = (): EChartsOption => ({
     tooltip: {
       trigger: 'axis',
       backgroundColor: 'rgba(255, 255, 255, 0.9)',
